@@ -1,0 +1,99 @@
+Two sum:
+
+class Solution(object):
+    def twoSum(self, nums, target):
+        for i in nums:
+            ano=target-i
+            if ano in nums:
+                if ano == i:
+                    if nums.count(ano)>1:
+                        numss=nums[:]
+                        numss.remove(i)
+                        return[nums.index(i),numss.index(ano)+1]
+                    else:
+                        continue
+                else:
+                    return [nums.index(i),nums.index(ano)]
+            else:
+                continue
+
+
+Add two numbers:
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        
+        TrueResult=ListNode(0)
+        result=TrueResult
+
+        while l1 or l2 :
+            if l1 and l2:
+                if result.next:
+                    a=l1.val+l2.val+result.next.val
+                    if a < 10:
+                        print('case1')
+                        result.next=ListNode(a)
+                    else:
+                        print('case2')
+                        result.next=ListNode(a%10)
+                        result.next.next=ListNode(1)
+                else:
+                    a=l1.val+l2.val
+                    if a < 10:
+                        print('case3')
+                        result.next=ListNode(a)
+                    else:
+                        print('case4')
+                        result.next=ListNode(a%10)
+                        result.next.next=ListNode(1)
+                l1=l1.next
+                l2=l2.next
+            elif not l1 and l2:
+                if result.next:
+                    a=l2.val+result.next.val
+                    if a < 10:
+                        print('case5')
+                        result.next=ListNode(a)
+                    else:
+                        print('case6')
+                        result.next=ListNode(a%10)
+                        result.next.next=ListNode(1)
+                else:
+                    print('case7')
+                    a=l2.val
+                    result.next=ListNode(a)
+                    
+                l2=l2.next
+            elif not l2 and l1:
+                if result.next:
+                    a=l1.val+result.next.val
+                    if a < 10:
+                        print('case8')
+                        result.next=ListNode(a)
+                    else:
+                        print('case9')
+                        result.next=ListNode(a%10)
+                        result.next.next=ListNode(1)
+                else:
+                    print('case10')
+                    result.next=ListNode(l1.val)
+                l1=l1.next
+            result=result.next
+            
+        return TrueResult.next
+                
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        
+        
+        
+       
