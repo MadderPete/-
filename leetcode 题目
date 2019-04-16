@@ -1,3 +1,6 @@
+##### leetcode上的题目和自己给的一些解法。 先放上来之后再优化。
+
+
 Two sum:
 
 class Solution(object):
