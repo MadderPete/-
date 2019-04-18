@@ -155,13 +155,184 @@ class Solution(object):
         return result
         
 
+Letter Combinations of a Phone Number
+
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        global dic
+        global wow
+        wow=[]
+        dic={
+            '2':['a','b','c'],
+            '3':['d','e','f'],
+            '4':['g','h','i'],
+            '5':['j','k','l'],
+            '6':['m','n','o'],
+            '7':['p','q','r','s'],
+            '8':['t','u','v'],
+            '9':['w','x','y','z']}
+        if len(digits) ==0:
+            return ''
+        else:
+            #digits=list(map(int,list(digits)))
+
+            self.count('',digits)
+            return wow
+        
+        
+    
+    def count(self,count,digits):
+        
+        if len(count)>=len(digits):
+            wow.append(count)
+            return
+        else:
+            for i in dic[digits[len(count)]]: # the value count can represent the length information and the letter series here
+                 self.count(count+i,digits)
 
 
 
+Remove Nth Node From End of List
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        if n == 0:
+            return head
+        else:
+            lengt=0
+            start = head
+            while(start is not None):
+                start=start.next
+                lengt+=1
+            
+            start = head
+            for i in range(lengt):
+                if lengt==n:
+                    head=head.next
+                    break
+                elif i == lengt-n-1:
+                    start.next=start.next.next
+                    break
+                else:
+                    start=start.next
+            return head
 
 
+Valid Parentheses
 
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        dic = {'{':'}','(':')','[':']'}
+        query=[]
+        if len(s)%2!=0:
+            return False
+        for i in range(len(s)):
+            if len(query)==0:
+                if s[i] not in ['{','[','(']:
+                    return False
+                else:
+                    query.append(s[i])
+            else:
+                if s[i]==dic[query[-1]]:
+                    query.pop(-1)
+                elif s[i] not in ['{','[','(']:
+                    return False
+                else:
+                    query.append(s[i])
+        if len(query)!=0:
+            return False
+        return True
+       
 
+Merge Two Sorted Lists
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        origin=ListNode(1)
+        start1=l1
+        start2=l2
+        start3=origin
+        while (start1 is not None or start2 is not None):
+            if(start1 is not None and start2 is not None):
+                if start1.val<start2.val:
+                    start3.next=ListNode(start1.val)
+                    start1=start1.next
+                    start3=start3.next
+                elif start1.val>start2.val:
+                    start3.next=ListNode(start2.val)
+                    start2=start2.next
+                    start3=start3.next
+                elif start1.val==start2.val:
+                    start3.next=ListNode(start1.val)
+                    start3.next.next=ListNode(start2.val)
+                    start1,start2=start1.next,start2.next
+                    start3=start3.next.next
+            elif not start1:
+                start3.next=start2
+                break
+            elif not start2:
+                start3.next = start1
+                break
+        return origin.next
+            
+ 
+Generate Parentheses
+
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        if n <1:
+            return []
+        self.create(n)
+        return list(set(result)) # remove some repulicated stuff
+    def create(self,n):
+        if n==1:
+            global result
+            result=['()']
+            #print(result)
+            return
+        else:
+            xx=[]
+            self.create(n-1)
+            for i in result:
+                for j in range(len(i)):
+                    if i[j] ==')':
+                        xx.append(i[:j]+'()'+i[j:])
+            xx.append(result[-1]+'()')
+            result = xx
 
 
 
