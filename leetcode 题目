@@ -516,8 +516,21 @@ class Solution(object):
                 matrix[i][j],matrix[j][i]=matrix[j][i],matrix[i][j]
 
 
-
-
+49. Group Anagrams
+class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        ans={}
+        for i in strs:
+            if tuple(sorted(i)) in ans.keys():
+                ans[tuple(sorted(i))].append(i)
+            else:
+                ans[tuple(sorted(i))]=[]
+                ans[tuple(sorted(i))].append(i)
+        return ans.values()
 
 
 
