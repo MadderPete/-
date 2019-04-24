@@ -546,3 +546,71 @@ class Solution(object):
                 nums[i] += nums[i-1]
         return max(nums)
        
+
+55. Jump Game
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        step=0
+        for i in range(len(nums)):
+            if step<0:
+                return False
+            if i==len(nums)-1:
+                return True
+            if step<nums[i]:
+                step=nums[i]
+            step-=1
+
+
+56. Merge Intervals
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        i=0
+        intervals=sorted(intervals)
+        while(i<len(intervals)-1):
+            if intervals[i][1]>=intervals[i+1][0]:
+                intervals[i+1]=[intervals[i][0],max(intervals[i][1],intervals[i+1][1])]
+                intervals.pop(i)
+            else:
+                i+=1
+        return intervals
+
+
+
+
+62. Unique Paths
+
+class Solution(object):
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        dn=n*[1]
+        for i in range(1,m):
+            for j in range(1,n):
+                dn[j]=dn[j-1]+dn[j]
+        return dn[-1] if n>1 else 1
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
