@@ -599,8 +599,95 @@ class Solution(object):
             for j in range(1,n):
                 dn[j]=dn[j-1]+dn[j]
         return dn[-1] if n>1 else 1
+        
    
 
+
+
+64. Minimum Path Sum
+class Solution(object):
+    def minPathSum(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        for i in range(1,len(grid[0])):
+            grid[0][i]+=grid[0][i-1]
+        for j in range(1,len(grid)):
+            grid[j][0]+=grid[j-1][0]
+            
+        for i in range(1,len(grid)):
+            for j in range(1,len(grid[0])):
+                grid[i][j]+=min(grid[i][j-1],grid[i-1][j])
+        return grid[-1][-1]
+
+
+
+
+70. Climbing Stairs
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if(n==1):
+            return 1
+        elif(n==2):
+            return 2
+        else:
+            stair=[1]*n
+            stair[1]=2
+            for i in range(2,len(stair)):
+                stair[i]=stair[i-1]+stair[i-2]
+            return stair[-1]
+            
+
+75. Sort Colors
+用快速排序
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        self.find(nums,0,len(nums)-1)
+        
+        return nums
+    
+    def find(self,num,b,e):
+        if b<e:
+            mid=self.get(num,b,e)
+            self.find(num,b,mid-1)
+            self.find(num,mid+1,e)
+            
+    def get(self,num,b,e):
+        begin=b-1
+        end=num[e]
+        for i in range(b,e):
+            if num[i]<end:
+                begin+=1
+                num[begin],num[i]=num[i],num[begin]
+        num[e],num[begin+1]=num[begin+1],num[e]
+        return begin+1
+
+
+78. Subsets
+依旧深度优先
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        result=[]
+        self.find(0,[],result,nums)
+        return result
+    def find(self,index,recent,result,nums):
+        result.append(recent)
+        for i in range(index,len(nums)):
+            index=i+1
+            self.find(index,recent+[nums[i]],result,nums)
 
 
 
