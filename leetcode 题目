@@ -690,8 +690,36 @@ class Solution(object):
             self.find(index,recent+[nums[i]],result,nums)
 
 
-
-
+79. Word Search
+深度优先
+class Solution(object):
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if self.find(word,board,0, i, j):
+                        return True
+        return False
+        
+    def find(self,word,board,index,x,y):
+        if len(word)==index:
+            return True
+        if x<0 or y<0 or x==len(board) or y == len(board[0]) or board[x][y]!=word[index]:
+            return False
+        # return orignal word in case this run is not good
+        tra=board[x][y]
+        board[x][y]=0
+        index+=1
+        res=(self.find(word,board,index,x-1,y) or
+            self.find(word,board,index,x+1,y) or
+            self.find(word,board,index,x,y-1) or
+            self.find(word,board,index,x,y+1))
+        board[x][y]=tra
+        return res
 
 
 
