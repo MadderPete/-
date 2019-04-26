@@ -721,6 +721,54 @@ class Solution(object):
         board[x][y]=tra
         return res
 
+94. Binary Tree Inorder Traversal
+这是个树的中序遍历问题
+#使用递归
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        result=[]
+        self.bianli(root,result)
+        return(result)
+        
+    def bianli(self,root,result):
+        if root==None:
+            return
+        self.bianli(root.left,result)
+        result.append(root.val)
+        self.bianli(root.right,result)
+
+堆栈
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        result=[]
+        Query=[]
+        if root==None:
+            return
+        else:
+            while(Query or root):
+                while root:
+                    Query.append(root)
+                    root=root.left
+                root=Query.pop()
+                result.append(root.val)
+                root=root.right
+        return result
+
 
 
 
